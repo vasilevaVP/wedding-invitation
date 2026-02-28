@@ -26,7 +26,10 @@
 Приглашаем вас на нашу свадьбу, которая состоится:</p>
     </section>    
     <section id ="block3">
+        <div class="date-cell">
         <img class="calen" src="img/calendar.svg" alt="">
+        <img class="heart-icon" src="img/heartDate.svg" alt="">
+    </div>
         <div class="timeline">
             <img src="img/OOO.svg" alt="">
         </div>
@@ -58,7 +61,24 @@
     <h2>Мы скажем...“ДА!”</h2>
     <p>через:</p>
 </div>
-<div class="time"> ТИПА ВРЕМЯ ТИК-ТАК</div>
+<div class="countdown" id="countdown">
+    <div class="time-box">
+        <span class="number" id="days">00</span>
+        <span class="label">Дней</span>
+    </div>
+    <div class="time-box">
+        <span class="number" id="hours">00</span>
+        <span class="label">Часов</span>
+    </div>
+    <div class="time-box">
+        <span class="number" id="minutes">00</span>
+        <span class="label">Минут</span>
+    </div>
+    <div class="time-box">
+        <span class="number" id="seconds">00</span>
+        <span class="label">Секунд</span>
+    </div>
+</div>
 </section>
 <section id="block9">
     <img src="img/wish.svg" alt="">
@@ -68,4 +88,32 @@
     <img src="img/textFooter.svg" alt="">
 </section>
 </body>
+<script>
+    // 1. Устанавливаем дату: 17 июля 2026, 15:00
+    // Месяцы в JS считаются с 0 (Январь=0, Июль=6)
+    const targetDate = new Date(2026, 6, 17, 15, 0, 0).getTime();
+
+    const timer = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        // 2. Математика расчёта времени
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // 3. Вывод на страницу (добавляем 0 перед цифрой, если она < 10)
+        document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+        document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+        document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+        document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+
+        // 4. Если время вышло
+        if (distance < 0) {
+            clearInterval(timer);
+            document.getElementById("countdown").innerHTML = "Время пришло!";
+        }
+    }, 1000); // Обновление каждую секунду
+</script>
 </html>
