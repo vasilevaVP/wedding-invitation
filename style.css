@@ -4,6 +4,30 @@
   --h3: 400 30px Annabelle;
   --p: 300 16px Comfortaa;
 }
+
+@font-face {
+    font-family: 'Annabelle';
+    src: url('path/to/annabelle.woff2') format('woff2'),
+         url('path/to/annabelle.woff') format('woff');
+}
+
+@font-face {
+	font-family: "Annabelle";
+	src: url("../fonts/annabelle/annabelle.eot"); /* IE9 Compat Modes */
+	src: url("../fonts/annabelle/annabelle.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+		url("../fonts/annabelle/annabelle.otf") format("opentype"), /* Open Type Font */
+		url("../fonts/annabelle/annabelle.svg") format("svg"), /* Legacy iOS */
+		url("../fonts/annabelle/annabelle.ttf") format("truetype"), /* Safari, Android, iOS */
+		url("../fonts/annabelle/annabelle.woff") format("woff"), /* Modern Browsers */
+		url("../fonts/annabelle/annabelle.woff2") format("woff2"); /* Modern Browsers */
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+    font-family: 'Annabelle', cursive;
+}
+
 html{
     margin: 0 auto;
      width: 100%;
