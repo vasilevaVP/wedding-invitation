@@ -89,16 +89,66 @@ background-image: url(./img/I_love_you.svg);
     flex-direction: column;
     padding: 0;
     position: relative;
-    z-index: 2; 
+ 
 }
 
 #block3{
-    margin-bottom: -152px;
+    margin-bottom: -160px;
 }
 
 #block3 .date-cell {
     position: relative;
     display: inline-block; 
+   z-index: 3; 
+}
+
+ #block3  .timeline-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            height: 1065px;
+            margin-top: 70px;
+            background-image: url(./img/time.svg);
+            background-repeat: no-repeat;
+        }
+
+      #block3   svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        /* Стиль основной (серой) линии */
+        #curve { stroke: #e0e0e0; stroke-width: 2; }
+
+        /* Стиль пройденного пути (цветной) */
+        #curve-progress {
+            stroke: #E76767;
+            stroke-width: 2;
+            stroke-linecap: round;
+            opacity: 0.5;
+        }
+
+        /* Анимация биения сердца */
+        #heart {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: heartbeat 1.2s infinite ease-in-out;
+            will-change: transform;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: translate(var(--tx), var(--ty)) scale(1); }
+            15% { transform: translate(var(--tx), var(--ty)) scale(1.2); }
+            30% { transform: translate(var(--tx), var(--ty)) scale(1); }
+            45% { transform: translate(var(--tx), var(--ty)) scale(1.15); }
+            60% { transform: translate(var(--tx), var(--ty)) scale(1); }
+        }
+
+        #heart, #curve-progress {
+    will-change: transform, stroke-dashoffset;
+    backface-visibility: hidden; /* Убирает микро-мерцание в Chrome */
 }
 
 #block3 .heart-icon {
@@ -106,11 +156,11 @@ background-image: url(./img/I_love_you.svg);
     top: 261px; 
     right: 147px;
     width: 40px;
-    animation: heartbeat 1.5s infinite;
+    animation: beat 1.5s infinite;
     transform-origin: center; 
 }
 
-@keyframes heartbeat {
+ @keyframes beat {
     0% { transform: scale(1); }
     14% { transform: scale(1.3); }
     28% { transform: scale(1); }
@@ -133,8 +183,10 @@ background-image: url(./img/I_love_you.svg);
     width: 370px;
     font-weight: 600;
     margin: 0 auto;
-    
 }
+ #block4 h2{
+    margin-bottom: 25px;
+ }
 
 button{
    display: inline-block;

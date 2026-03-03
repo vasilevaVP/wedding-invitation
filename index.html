@@ -24,15 +24,25 @@
         <h3>Дорогие родные и близкие!</h3>
         <p>Один из дней этого лета станет самым важным в нашей жизни, и мы хотим провести его вместе с вами. 
 <br>Приглашаем вас на нашу свадьбу, которая состоится:</p>
-    </section>    
-    <section id ="block3">
-        <div class="date-cell">
+    </section>   
+    <section id="block3">
+                <div class="date-cell">
         <img class="calen" src="img/calendar.svg" alt="">
         <img class="heart-icon" src="img/heartDate.svg" alt="">
     </div>
-        <div class="timeline">
-            <img src="img/OOO.svg" alt="">
-        </div>
+    </section> 
+    <section id ="block3">
+       <div class="timeline-container" id="trigger">
+    <svg viewBox="0 0 281 1065" preserveAspectRatio="xMidYMin meet" fill="none">
+        <!-- Фоновая линия -->
+        <path id="curve" d="M169.953 0.326538C140.82 34.1009 140.82 67.8753 169.953 101.65C257.354 202.973 220.776 204.89 61.776 275.39C-45.7465 323.065 7.84102 377.382 184.776 422.89C410.276 480.89 182.085 548.269 45.776 600.89C-61.7242 642.39 33.2759 693.39 214.276 747.39C396.487 801.752 1.27583 985.39 186.276 1072.89" stroke-width="2"/> 
+        
+        <!-- Прогресс-линия (копия первой) -->
+        <path id="curve-progress" d="M169.953 0.326538C140.82 34.1009 140.82 67.8753 169.953 101.65C257.354 202.973 220.776 204.89 61.776 275.39C-45.7465 323.065 7.84102 377.382 184.776 422.89C410.276 480.89 182.085 548.269 45.776 600.89C-61.7242 642.39 33.2759 693.39 214.276 747.39C396.487 801.752 1.27583 985.39 186.276 1072.89" /> 
+        <!-- Сердце -->
+        <path id="heart" d="M0 17.5L-2.8275 14.9823C-12.87 6.0749 -19.5 0.2003 -19.5 -7.0095C-19.5 -12.8842 -14.781 -17.5 -8.775 -17.5C-5.382 -17.5 -2.1255 -15.955 -0 -13.5136C2.1255 -15.955 5.382 -17.5 8.775 -17.5C14.781 -17.5 19.5 -12.8842 19.5 -7.0095C19.5 0.2003 12.87 6.0749 2.8275 15.0014L0 17.5Z" fill="#E76767"/> 
+    </svg>
+</div>
 </section>
 <section id="block4">
     <h2>Ждём Вас!</h2>
@@ -111,5 +121,58 @@
             document.getElementById("countdown").innerHTML = "Если вы это читаете — значит, мы уже муж и жена. Ура!";
         }
     }, 1000); 
+
+
+const path = document.getElementById('curve');
+const progressPath = document.getElementById('curve-progress');
+const heart = document.getElementById('heart');
+const container = document.getElementById('trigger');
+const pathLength = path.getTotalLength();
+
+const pointsCount = 500; 
+const pointsCache = [];
+for (let i = 0; i <= pointsCount; i++) {
+    const p = path.getPointAtLength((i / pointsCount) * pathLength);
+    pointsCache.push({x: p.x, y: p.y});
+}
+
+progressPath.style.strokeDasharray = pathLength;
+progressPath.style.strokeDashoffset = pathLength;
+
+let targetProgress = 0;  
+let currentProgress = 0; 
+const ease = 0.08; 
+
+function updateProgress() {
+    const rect = container.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    let progress = (windowHeight / 2 - rect.top) / rect.height;
+    targetProgress = Math.max(0, Math.min(1, progress));
+}
+
+function animate() {
+    currentProgress += (targetProgress - currentProgress) * ease;
+
+    const index = Math.round(currentProgress * pointsCount);
+    const point = pointsCache[index] || pointsCache[0];
+
+    progressPath.style.strokeDashoffset = pathLength - (pathLength * currentProgress);
+
+    heart.style.transform = `translate(${point.x}px, ${point.y}px)`;
+    heart.style.setProperty('--tx', `${point.x}px`);
+    heart.style.setProperty('--ty', `${point.y}px`);
+
+    requestAnimationFrame(animate);
+}
+
+window.addEventListener('scroll', updateProgress, { passive: true });
+animate();
+window.addEventListener('resize', () => {
+
+    const newPathLength = path.getTotalLength();
+    progressPath.style.strokeDasharray = newPathLength;
+    pathLength = newPathLength; 
+});
+
 </script>
 </html>
