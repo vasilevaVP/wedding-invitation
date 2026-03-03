@@ -45,6 +45,22 @@ body {
   background-color: #ffffff;
 }
 
+/* Просто масштабируем весь сайт под размер экрана */
+@media (max-width: 500px) {
+    body {
+        transform: scale(calc(100vw / 500));
+        transform-origin: top center;
+        width: 500px;
+        margin: 0 auto;
+        padding: 0;
+    }
+    
+    /* Отключаем hover эффекты на мобильных */
+    button:hover {
+        background-color: #ffffff;
+    }
+}
+
 
 section{
     margin-bottom: 70px;
