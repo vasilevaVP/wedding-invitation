@@ -194,13 +194,25 @@ background-image: url(./img/I_love_you.svg);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
+
 }
 #block4 p{
     width: 370px;
+}
+
+.map .adres{
     font-weight: 600;
     margin: 0 auto;
+    margin-bottom: 5px;
 }
+
+.map .utoch{
+font-size: 12px;
+     font-weight: 300;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
  #block4 h2{
     margin-bottom: 25px;
  }
